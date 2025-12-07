@@ -7,7 +7,7 @@ import type { DrizzleD1Database } from 'drizzle-orm/d1'
 import * as schema from '@/db/d1/schema'
 import pkg from '../../package.json'
 
-export function getAuth(context: { d1Session: DrizzleD1Database<typeof schema> }) {
+export const getAuth = (context: { d1Session: DrizzleD1Database<typeof schema> }) => {
     return betterAuth({
         appName: pkg.name,
         secret: env.BETTER_AUTH_SECRET,
@@ -61,3 +61,6 @@ export function getAuth(context: { d1Session: DrizzleD1Database<typeof schema> }
         ]
     })
 }
+
+// For usage only when generating Better Auth schema and outside of request context
+export const auth = getAuth({ d1Session: {} as any })

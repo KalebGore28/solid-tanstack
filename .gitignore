@@ -9,3 +9,4 @@ dist-ssr
 .wrangler
 wrangler.jsonc
 src/routeTree.gen.ts
+worker-configuration.d.ts

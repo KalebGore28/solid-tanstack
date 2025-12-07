@@ -8,7 +8,9 @@ declare module '@tanstack/solid-start' {
     interface Register {
         server: {
             requestContext: {
-                d1Session: ReturnType<typeof drizzle<typeof schema, typeof relations>>
+                d1Session: ReturnType<
+                    typeof drizzle<typeof schema, typeof relations>
+                >
                 auth: ReturnType<typeof getAuth>
                 user?: NonNullable<
                     Awaited<

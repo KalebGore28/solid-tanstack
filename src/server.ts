@@ -1,7 +1,7 @@
 import handler from '@tanstack/solid-start/server-entry'
-import * as schema from '@/db/d1/schema'
 import { drizzle as drizzleD1 } from 'drizzle-orm/d1'
 import type { DrizzleD1Database } from 'drizzle-orm/d1'
+import * as schema from '@/db/d1/schema'
 import { getAuth } from '@/lib/auth'
 
 declare module '@tanstack/solid-start' {
@@ -9,8 +9,8 @@ declare module '@tanstack/solid-start' {
         server: {
             requestContext: {
                 d1Session: DrizzleD1Database<typeof schema>
-                auth: ReturnType<typeof getAuth>,
-            },
+                auth: ReturnType<typeof getAuth>
+            }
         }
     }
 }

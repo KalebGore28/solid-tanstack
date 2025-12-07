@@ -5,5 +5,5 @@ import { loadUser } from '@/middleware/load-user'
 export const Route = createFileRoute('/api/__protected')({
     server: {
         middleware: [loadUser],
-    }
+    },
 })

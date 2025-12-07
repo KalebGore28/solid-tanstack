@@ -1,6 +1,6 @@
 import { useNavigate } from '@tanstack/solid-router'
+import { ArrowLeft, Home } from 'lucide-solid'
 import { Button } from '@/components/ui/button'
-import { Home, ArrowLeft } from 'lucide-solid'
 
 export function NotFound() {
     const navigate = useNavigate()
@@ -21,7 +21,8 @@ export function NotFound() {
                         Page Not Found
                     </h2>
                     <p class="text-gray-600 dark:text-gray-400">
-                        The page you're looking for doesn't exist or has been moved.
+                        The page you're looking for doesn't exist or has been
+                        moved.
                     </p>
                 </div>
 

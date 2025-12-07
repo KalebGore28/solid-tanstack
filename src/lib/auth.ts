@@ -1,13 +1,15 @@
 import { betterAuth } from 'better-auth/minimal'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { tanstackStartCookies } from "better-auth/tanstack-start";
-import { lastLoginMethod } from "better-auth/plugins"
+import { tanstackStartCookies } from 'better-auth/tanstack-start'
+import { lastLoginMethod } from 'better-auth/plugins'
 import { env } from 'cloudflare:workers'
+import pkg from '../../package.json'
 import type { DrizzleD1Database } from 'drizzle-orm/d1'
 import * as schema from '@/db/d1/schema'
-import pkg from '../../package.json'
 
-export const getAuth = (context: { d1Session: DrizzleD1Database<typeof schema> }) => {
+export const getAuth = (context: {
+    d1Session: DrizzleD1Database<typeof schema>
+}) => {
     return betterAuth({
         appName: pkg.name,
         secret: env.BETTER_AUTH_SECRET,
@@ -18,17 +20,19 @@ export const getAuth = (context: { d1Session: DrizzleD1Database<typeof schema> }
         }),
         secondaryStorage: {
             get: async (key) => {
-                return await env.solid_tanstack.get(key);
+                return await env.solid_tanstack.get(key)
             },
             set: async (key, value, ttl) => {
                 if (ttl) {
-                    await env.solid_tanstack.put(key, value, { expirationTtl: ttl });
+                    await env.solid_tanstack.put(key, value, {
+                        expirationTtl: ttl,
+                    })
                 } else {
-                    await env.solid_tanstack.put(key, value);
+                    await env.solid_tanstack.put(key, value)
                 }
             },
             delete: async (key) => {
-                await env.solid_tanstack.delete(key);
+                await env.solid_tanstack.delete(key)
             },
         },
         // socialProviders: {
@@ -45,7 +49,7 @@ export const getAuth = (context: { d1Session: DrizzleD1Database<typeof schema> }
             },
             // For more info: https://www.better-auth.com/docs/concepts/session-management
             expiresIn: 60 * 60 * 24 * 7, // 7 days
-            updateAge: 60 * 60 * 24 // 1 day (every 1 day the session expiration is updated)
+            updateAge: 60 * 60 * 24, // 1 day (every 1 day the session expiration is updated)
         },
         account: {
             encryptOAuthTokens: true,
@@ -57,8 +61,8 @@ export const getAuth = (context: { d1Session: DrizzleD1Database<typeof schema> }
             lastLoginMethod({
                 storeInDatabase: true,
             }),
-            tanstackStartCookies() // make sure this is the last plugin in the array
-        ]
+            tanstackStartCookies(), // make sure this is the last plugin in the array
+        ],
     })
 }
 

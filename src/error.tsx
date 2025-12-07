@@ -1,7 +1,7 @@
 import { useNavigate } from '@tanstack/solid-router'
-import { Button } from '@/components/ui/button'
-import { House, RotateCcw, CircleAlert, Copy, Check } from 'lucide-solid'
+import { Check, CircleAlert, Copy, House, RotateCcw } from 'lucide-solid'
 import { Show, createSignal } from 'solid-js'
+import { Button } from '@/components/ui/button'
 
 interface ErrorComponentProps {
     error: Error
@@ -16,7 +16,8 @@ export function ErrorComponent(props: ErrorComponentProps) {
     const isDevelopment = import.meta.env.DEV
 
     const copyErrorDetails = async () => {
-        const errorDetails = `Error: ${props.error.message}\n\n` +
+        const errorDetails =
+            `Error: ${props.error.message}\n\n` +
             `Stack Trace:\n${props.error.stack || 'N/A'}\n\n` +
             `Component Stack:\n${props.info?.componentStack || 'N/A'}`
 
@@ -45,7 +46,8 @@ export function ErrorComponent(props: ErrorComponentProps) {
                         Something went wrong
                     </h2>
                     <p class="text-gray-600 dark:text-gray-400">
-                        We encountered an unexpected error. Please try again or return home.
+                        We encountered an unexpected error. Please try again or
+                        return home.
                     </p>
                 </div>
 
@@ -116,7 +118,7 @@ export function ErrorComponent(props: ErrorComponentProps) {
                     </Show>
                     <Button
                         onClick={() => navigate({ to: '/' })}
-                        variant={props.reset ? "outline" : "default"}
+                        variant={props.reset ? 'outline' : 'default'}
                         size="lg"
                         class="gap-2"
                     >

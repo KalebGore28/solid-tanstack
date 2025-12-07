@@ -2,16 +2,21 @@ import { createMiddleware } from '@tanstack/solid-start'
 
 export const loadUser = createMiddleware().server(
     async ({ next, context, request }) => {
-        const session = await context.auth.api.getSession({ headers: request.headers })
+        const session = await context.auth.api.getSession({
+            headers: request.headers,
+        })
 
         if (!session) {
             return {
                 response: new Response(
-                    JSON.stringify({ error: 'Unauthorized', message: 'User not signed in' }),
+                    JSON.stringify({
+                        error: 'Unauthorized',
+                        message: 'User not signed in',
+                    }),
                     {
                         status: 401,
                         headers: { 'Content-Type': 'application/json' },
-                    }
+                    },
                 ),
                 request,
                 pathname: new URL(request.url).pathname,
@@ -48,5 +53,5 @@ export const loadUser = createMiddleware().server(
                 user: session.user,
             },
         })
-    }
+    },
 )

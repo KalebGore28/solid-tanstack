@@ -13,7 +13,10 @@
         "check": "prettier --write . && eslint --fix",
         "deploy": "wrangler deploy",
         "start": "node .output/server/index.mjs",
-        "cf-typegen": "wrangler types"
+        "cf-typegen": "wrangler types",
+        "d1:gen": "drizzle-kit generate --config=drizzle-d1.config.ts",
+        "d1:mig": "wrangler d1 migrations apply solid_tanstack_db",
+        "d1:studio": "drizzle-kit studio --config=drizzle-d1.config.ts"
     },
     "dependencies": {
         "@kobalte/core": "^0.13.11",

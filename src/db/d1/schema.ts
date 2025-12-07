@@ -1,5 +1,4 @@
 import { sql } from 'drizzle-orm'
-import { relations } from 'drizzle-orm/_relations'
 import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 export const user = sqliteTable('user', {
@@ -66,14 +65,3 @@ export const verification = sqliteTable(
     },
     (table) => [index('verification_identifier_idx').on(table.identifier)],
 )
-
-export const userRelations = relations(user, ({ many }) => ({
-    accounts: many(account),
-}))
-
-export const accountRelations = relations(account, ({ one }) => ({
-    user: one(user, {
-        fields: [account.userId],
-        references: [user.id],
-    }),
-}))

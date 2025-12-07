@@ -1,14 +1,14 @@
 import handler from '@tanstack/solid-start/server-entry'
-import { drizzle as drizzleD1 } from 'drizzle-orm/d1'
-import type { DrizzleD1Database } from 'drizzle-orm/d1'
-import * as schema from '@/db/d1/schema'
+import { drizzle } from 'drizzle-orm/d1'
+import { relations } from '@/db/d1/relations'
+import * as schema from '@/db/d1//schema'
 import { getAuth } from '@/lib/auth'
 
 declare module '@tanstack/solid-start' {
     interface Register {
         server: {
             requestContext: {
-                d1Session: DrizzleD1Database<typeof schema>
+                d1Session: ReturnType<typeof drizzle<typeof schema, typeof relations>>
                 auth: ReturnType<typeof getAuth>
                 user?: NonNullable<
                     Awaited<
@@ -31,9 +31,12 @@ declare module '@tanstack/solid-start' {
 
 export default {
     async fetch(request, env) {
-        // const bookmark = request.headers.get('x-d1-bookmark') ?? 'first'
+        const bookmark =
+            request.headers.get('x-d1-bookmark') ?? 'first-unconstrained'
 
-        const d1Session = drizzleD1(env.solid_tanstack_db, { schema })
+        const dbSession = env.solid_tanstack_db.withSession(bookmark)
+
+        const d1Session = drizzle(dbSession, { schema, relations })
 
         const auth = getAuth({ d1Session })
 
@@ -44,7 +47,7 @@ export default {
             },
         })
 
-        // response.headers.set('x-d1-bookmark', d1Session.getBookmark() ?? '')
+        response.headers.set('x-d1-bookmark', dbSession.getBookmark() ?? '')
         return response
     },
 } satisfies ExportedHandler<Env>

@@ -1,11 +1,17 @@
 import { betterAuth } from 'better-auth/minimal'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
+import { tanstackStartCookies } from "better-auth/tanstack-start";
+import { lastLoginMethod } from "better-auth/plugins"
 import { env } from 'cloudflare:workers'
-import { DrizzleD1Database } from 'drizzle-orm/d1'
+import type { DrizzleD1Database } from 'drizzle-orm/d1'
 import * as schema from '@/db/d1/schema'
+import pkg from '../../package.json'
 
 export function getAuth(context: { d1Session: DrizzleD1Database<typeof schema> }) {
     return betterAuth({
+        appName: pkg.name,
+        secret: env.BETTER_AUTH_SECRET,
+        trustedOrigins: [env.BETTER_AUTH_URL],
         database: drizzleAdapter(context.d1Session, {
             provider: 'sqlite',
             schema,
@@ -31,8 +37,6 @@ export function getAuth(context: { d1Session: DrizzleD1Database<typeof schema> }
         //         clientSecret: env.GOOGLE_CLIENT_SECRET,
         //     },
         // },
-        trustedOrigins: [env.BETTER_AUTH_URL],
-        secret: env.BETTER_AUTH_SECRET,
         session: {
             // For more info: https://www.better-auth.com/docs/guides/optimizing-for-performance
             cookieCache: {
@@ -43,5 +47,17 @@ export function getAuth(context: { d1Session: DrizzleD1Database<typeof schema> }
             expiresIn: 60 * 60 * 24 * 7, // 7 days
             updateAge: 60 * 60 * 24 // 1 day (every 1 day the session expiration is updated)
         },
+        account: {
+            encryptOAuthTokens: true,
+        },
+        advanced: {
+            useSecureCookies: true,
+        },
+        plugins: [
+            lastLoginMethod({
+                storeInDatabase: true,
+            }),
+            tanstackStartCookies() // make sure this is the last plugin in the array
+        ]
     })
 }

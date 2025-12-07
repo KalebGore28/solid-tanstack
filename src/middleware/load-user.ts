@@ -35,6 +35,7 @@ export const loadUser = createMiddleware({ type: 'request' }).server(
                         emailVerified: false,
                         name: '',
                         image: null,
+                        lastLoginMethod: null,
                     },
                 },
             }

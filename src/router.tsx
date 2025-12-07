@@ -1,9 +1,9 @@
 import { createRouter } from '@tanstack/solid-router'
 import { broadcastQueryClient } from '@tanstack/query-broadcast-client-experimental'
+import { getQueryClient } from '@/integrations/tanstack-query/provider'
+import { ErrorComponent } from '@/error'
+import { NotFound } from '@/not-found'
 import pkg from '../package.json'
-import { NotFound } from './not-found'
-import { getQueryClient } from './integrations/tanstack-query/provider'
-import { ErrorComponent } from './error'
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'

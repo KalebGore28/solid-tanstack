@@ -1,6 +1,6 @@
 import { useNavigate } from '@tanstack/solid-router'
-import { ArrowLeft, Home } from 'lucide-solid'
 import { Button } from '@/components/ui/button'
+import { ArrowLeft, House } from 'lucide-solid'
 
 export function NotFound() {
     const navigate = useNavigate()
@@ -33,7 +33,7 @@ export function NotFound() {
                         size="lg"
                         class="gap-2"
                     >
-                        <Home class="w-4 h-4" />
+                        <House class="w-4 h-4" />
                         Go Home
                     </Button>
                     <Button

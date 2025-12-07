@@ -1,4 +1,4 @@
-import { createRouter } from '@tanstack/solid-router'
+import { createRouter, ErrorComponent } from '@tanstack/solid-router'
 import { broadcastQueryClient } from '@tanstack/query-broadcast-client-experimental'
 import { NotFound } from './not-found'
 import { getQueryClient } from './integrations/tanstack-query/provider'
@@ -16,6 +16,9 @@ export const getRouter = () => {
 		context: { queryClient },
 		scrollRestoration: true,
 		defaultPreload: 'intent',
+		defaultErrorComponent: ({ error }) => (
+			<ErrorComponent error={error} />
+		),
 		defaultNotFoundComponent: () => <NotFound />,
 	})
 

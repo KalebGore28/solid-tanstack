@@ -10,7 +10,7 @@ declare module '@tanstack/solid-start' {
             requestContext: {
                 d1Session: DrizzleD1Database<typeof schema>
                 auth: ReturnType<typeof getAuth>,
-            }
+            },
         }
     }
 }
@@ -25,7 +25,7 @@ export default {
 
         const response = await handler.fetch(request, {
             context: {
-                auth: auth,
+                auth,
                 d1Session,
             },
         })

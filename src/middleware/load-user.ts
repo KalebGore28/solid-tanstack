@@ -1,7 +1,7 @@
 import { createMiddleware } from '@tanstack/solid-start'
 
-export const loadUser = createMiddleware({ type: 'request' }).server(
-    async ({ next, request, context }) => {
+export const loadUser = createMiddleware().server(
+    async ({ next, context, request }) => {
         const session = await context.auth.api.getSession({ headers: request.headers })
 
         if (!session) {

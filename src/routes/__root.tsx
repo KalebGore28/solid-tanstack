@@ -1,17 +1,33 @@
-import { HeadContent, Outlet, Scripts, createRootRouteWithContext } from '@tanstack/solid-router'
+import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/solid-router'
 import { TanStackRouterDevtools } from '@tanstack/solid-router-devtools'
 import TanStackQueryProvider from '../integrations/tanstack-query/provider.tsx'
+import { NotFound } from '@/not-found.tsx'
+import { ErrorComponent } from '@tanstack/solid-router'
 
 import { HydrationScript } from 'solid-js/web'
 import { Suspense } from 'solid-js'
 
 import appCSS from '../app.css?url'
 
-export const Route = createRootRouteWithContext()({
+export const Route = createRootRoute({
   head: () => ({
     links: [{ rel: 'stylesheet', href: appCSS }],
+    meta: [
+      {
+        charSet: 'utf-8',
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1',
+      },
+      {
+        title: 'TanStack Start Starter',
+      },
+    ],
   }),
-  shellComponent: RootComponent,
+  notFoundComponent: NotFound,
+  errorComponent: ({ error }) => <ErrorComponent error={error} />,
+  component: RootComponent,
 })
 
 function RootComponent() {

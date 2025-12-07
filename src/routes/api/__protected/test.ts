@@ -8,6 +8,7 @@ export const Route = createFileRoute('/api/__protected/test')({
                     JSON.stringify({
                         message: 'Protected test route accessed',
                         user: context.user,
+                        session: context.session,
                     }),
                     {
                         status: 200,

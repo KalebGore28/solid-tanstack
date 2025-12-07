@@ -10,6 +10,20 @@ declare module '@tanstack/solid-start' {
             requestContext: {
                 d1Session: DrizzleD1Database<typeof schema>
                 auth: ReturnType<typeof getAuth>
+                user?: NonNullable<
+                    Awaited<
+                        ReturnType<
+                            ReturnType<typeof getAuth>['api']['getSession']
+                        >
+                    >
+                >['user']
+                session?: NonNullable<
+                    Awaited<
+                        ReturnType<
+                            ReturnType<typeof getAuth>['api']['getSession']
+                        >
+                    >
+                >['session']
             }
         }
     }

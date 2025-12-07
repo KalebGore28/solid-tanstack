@@ -1,6 +1,6 @@
 import { useNavigate } from '@tanstack/solid-router'
-import { Button } from '@/components/ui/button'
 import { ArrowLeft, House } from 'lucide-solid'
+import { Button } from '@/components/ui/button'
 
 export function NotFound() {
     const navigate = useNavigate()

@@ -1,12 +1,12 @@
 import { createRouter } from '@tanstack/solid-router'
 import { broadcastQueryClient } from '@tanstack/query-broadcast-client-experimental'
+import pkg from '../package.json'
+import { routeTree } from './routeTree.gen'
 import { getQueryClient } from '@/integrations/tanstack-query/provider'
 import { ErrorComponent } from '@/error'
 import { NotFound } from '@/not-found'
-import pkg from '../package.json'
 
 // Import the generated route tree
-import { routeTree } from './routeTree.gen'
 
 // Create a new router instance
 export const getRouter = () => {

@@ -1,8 +1,6 @@
 import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/solid-router'
 import { TanStackRouterDevtools } from '@tanstack/solid-router-devtools'
 import TanStackQueryProvider from '../integrations/tanstack-query/provider.tsx'
-import { NotFound } from '@/not-found.tsx'
-import { ErrorComponent } from '@tanstack/solid-router'
 
 import { HydrationScript } from 'solid-js/web'
 import { Suspense } from 'solid-js'
@@ -25,8 +23,6 @@ export const Route = createRootRoute({
       },
     ],
   }),
-  notFoundComponent: NotFound,
-  errorComponent: ({ error }) => <ErrorComponent error={error} />,
   component: RootComponent,
 })
 

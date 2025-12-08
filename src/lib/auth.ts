@@ -13,7 +13,8 @@ export const getAuth = (context: {
     return betterAuth({
         appName: pkg.name,
         secret: env.BETTER_AUTH_SECRET,
-        trustedOrigins: [env.BETTER_AUTH_URL],
+        baseURL: env.BETTER_AUTH_URL,
+        trustedOrigins: [env.TRUSTED_ORIGIN],
         database: drizzleAdapter(context.d1Session, {
             provider: 'sqlite',
             schema,
@@ -35,12 +36,12 @@ export const getAuth = (context: {
                 await env.solid_tanstack.delete(key)
             },
         },
-        // socialProviders: {
-        //     google: {
-        //         clientId: env.GOOGLE_CLIENT_ID,
-        //         clientSecret: env.GOOGLE_CLIENT_SECRET,
-        //     },
-        // },
+        socialProviders: {
+            google: {
+                clientId: env.GOOGLE_CLIENT_ID,
+                clientSecret: env.GOOGLE_CLIENT_SECRET,
+            },
+        },
         session: {
             // For more info: https://www.better-auth.com/docs/guides/optimizing-for-performance
             cookieCache: {
@@ -54,9 +55,9 @@ export const getAuth = (context: {
         account: {
             encryptOAuthTokens: true,
         },
-        advanced: {
-            useSecureCookies: true,
-        },
+        // advanced: {
+        //     useSecureCookies: true,
+        // },
         plugins: [
             lastLoginMethod({
                 storeInDatabase: true,

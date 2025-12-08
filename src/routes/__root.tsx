@@ -1,37 +1,49 @@
-import {
-    HeadContent,
-    Outlet,
-    Scripts,
-    createRootRoute,
-} from '@tanstack/solid-router'
+import { HeadContent, Scripts, createRootRoute } from '@tanstack/solid-router'
 import { TanStackRouterDevtools } from '@tanstack/solid-router-devtools'
-
 import { HydrationScript } from 'solid-js/web'
-import { Suspense } from 'solid-js'
 import TanStackQueryProvider from '../integrations/tanstack-query/provider.tsx'
-
 import appCSS from '../app.css?url'
+import type * as Solid from 'solid-js'
+import { SessionProvider } from '@/providers/session.tsx'
 
 export const Route = createRootRoute({
     head: () => ({
-        links: [{ rel: 'stylesheet', href: appCSS }],
         meta: [
             {
-                charSet: 'utf-8',
+                charset: 'utf-8',
             },
             {
                 name: 'viewport',
                 content: 'width=device-width, initial-scale=1',
             },
+        ],
+        links: [
+            { rel: 'stylesheet', href: appCSS },
             {
-                title: 'TanStack Start Starter',
+                rel: 'apple-touch-icon',
+                sizes: '180x180',
+                href: '/apple-touch-icon.png',
             },
+            {
+                rel: 'icon',
+                type: 'image/png',
+                sizes: '32x32',
+                href: '/favicon-32x32.png',
+            },
+            {
+                rel: 'icon',
+                type: 'image/png',
+                sizes: '16x16',
+                href: '/favicon-16x16.png',
+            },
+            { rel: 'manifest', href: '/site.webmanifest', color: '#fffff' },
+            { rel: 'icon', href: '/favicon.ico' },
         ],
     }),
-    component: RootComponent,
+    shellComponent: RootDocument,
 })
 
-function RootComponent() {
+function RootDocument({ children }: { children: Solid.JSX.Element }) {
     return (
         <html>
             <head>
@@ -39,12 +51,10 @@ function RootComponent() {
             </head>
             <body>
                 <HeadContent />
-                <Suspense>
-                    <TanStackQueryProvider>
-                        <Outlet />
-                        <TanStackRouterDevtools />
-                    </TanStackQueryProvider>
-                </Suspense>
+                <TanStackQueryProvider>
+                    <SessionProvider>{children}</SessionProvider>
+                </TanStackQueryProvider>
+                <TanStackRouterDevtools />
                 <Scripts />
             </body>
         </html>

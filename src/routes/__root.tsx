@@ -4,7 +4,6 @@ import { HydrationScript } from 'solid-js/web'
 import TanStackQueryProvider from '../integrations/tanstack-query/provider.tsx'
 import appCSS from '../app.css?url'
 import type * as Solid from 'solid-js'
-import { SessionProvider } from '@/providers/session.tsx'
 
 export const Route = createRootRoute({
     head: () => ({
@@ -45,18 +44,13 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: Solid.JSX.Element }) {
     return (
-        <html>
-            <head>
-                <HydrationScript />
-            </head>
-            <body>
-                <HeadContent />
-                <TanStackQueryProvider>
-                    <SessionProvider>{children}</SessionProvider>
-                </TanStackQueryProvider>
-                <TanStackRouterDevtools />
-                <Scripts />
-            </body>
-        </html>
+        <>
+            <HeadContent />
+            <TanStackQueryProvider>
+                {children}
+            </TanStackQueryProvider>
+            <TanStackRouterDevtools />
+            <Scripts />
+        </>
     )
 }

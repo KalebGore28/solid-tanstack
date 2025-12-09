@@ -5,6 +5,7 @@
     "": {
       "name": "solid-app",
       "dependencies": {
+        "@cloudflare/vite-plugin": "^1.17.0",
         "@kobalte/core": "^0.13.11",
         "@tailwindcss/vite": "^4.1.17",
         "@tanstack/query-broadcast-client-experimental": "^5.90.12",
@@ -31,7 +32,6 @@
         "vite-tsconfig-paths": "^5.1.4",
       },
       "devDependencies": {
-        "@cloudflare/vite-plugin": "^1.17.0",
         "@cloudflare/workers-types": "^4.20251205.0",
         "@tanstack/devtools-vite": "^0.3.12",
         "@tanstack/eslint-config": "^0.3.4",

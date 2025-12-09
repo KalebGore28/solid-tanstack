@@ -33,14 +33,13 @@ declare module '@tanstack/solid-start' {
 
 export default {
     async fetch(request, env) {
-        const bookmark =
-            request.headers.get('x-d1-bookmark') ?? 'first-unconstrained'
+        // const bookmark = request.headers.get('x-d1-bookmark') ?? 'first-unconstrained'
 
-        const dbSession = env.solid_tanstack_db.withSession(bookmark)
+        const dbSession = env.solid_tanstack_db //.withSession(bookmark)
 
         const d1Session = drizzle(dbSession, { schema, relations })
 
-        const auth = getAuth({ d1Session })
+        const auth = getAuth({ d1Session, env })
 
         const response = await handler.fetch(request, {
             context: {
@@ -49,7 +48,7 @@ export default {
             },
         })
 
-        response.headers.set('x-d1-bookmark', dbSession.getBookmark() ?? '')
+        // response.headers.set('x-d1-bookmark', dbSession.getBookmark() ?? '')
         return response
     },
 } satisfies ExportedHandler<Env>

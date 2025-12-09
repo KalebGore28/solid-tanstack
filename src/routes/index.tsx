@@ -9,13 +9,12 @@ export const Route = createFileRoute('/')({
     beforeLoad: async () => {
         const session = await getAuthUser()
         return { session }
-    }
+    },
 })
 
 function App() {
     const session = { isLoading: false, user: null } // useSession()
     const data = Route.useLoaderData()
-
 
     console.log('Session Object:', session, data())
 

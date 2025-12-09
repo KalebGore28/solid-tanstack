@@ -50,9 +50,7 @@ function RootDocument({ children }: { children: Solid.JSX.Element }) {
             </head>
             <body>
                 <HeadContent />
-                <TanStackQueryProvider>
-                    {children}
-                </TanStackQueryProvider>
+                <TanStackQueryProvider>{children}</TanStackQueryProvider>
                 <TanStackRouterDevtools />
                 <Scripts />
             </body>

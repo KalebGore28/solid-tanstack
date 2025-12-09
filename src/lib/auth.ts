@@ -2,44 +2,42 @@ import { betterAuth } from 'better-auth/minimal'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { tanstackStartCookies } from 'better-auth/tanstack-start'
 import { lastLoginMethod } from 'better-auth/plugins'
+import { env } from 'cloudflare:workers'
 import pkg from '../../package.json'
 import type { DrizzleD1Database } from 'drizzle-orm/d1'
 import * as schema from '@/db/d1/schema'
 
-export const getAuth = (context: {
-    d1Session: DrizzleD1Database<typeof schema>
-    env: Env
-}) => {
+export const getAuth = (d1Session: DrizzleD1Database<typeof schema>) => {
     return betterAuth({
         appName: pkg.name,
-        secret: context.env.BETTER_AUTH_SECRET,
-        baseURL: context.env.BETTER_AUTH_URL,
-        trustedOrigins: [context.env.TRUSTED_ORIGIN],
-        database: drizzleAdapter(context.d1Session, {
+        secret: env.BETTER_AUTH_SECRET,
+        baseURL: env.BETTER_AUTH_URL,
+        trustedOrigins: [env.TRUSTED_ORIGIN],
+        database: drizzleAdapter(d1Session, {
             provider: 'sqlite',
             schema,
         }),
         secondaryStorage: {
             get: async (key) => {
-                return await context.env.solid_tanstack.get(key)
+                return await env.solid_tanstack.get(key)
             },
             set: async (key, value, ttl) => {
                 if (ttl) {
-                    await context.env.solid_tanstack.put(key, value, {
+                    await env.solid_tanstack.put(key, value, {
                         expirationTtl: ttl,
                     })
                 } else {
-                    await context.env.solid_tanstack.put(key, value)
+                    await env.solid_tanstack.put(key, value)
                 }
             },
             delete: async (key) => {
-                await context.env.solid_tanstack.delete(key)
+                await env.solid_tanstack.delete(key)
             },
         },
         socialProviders: {
             google: {
-                clientId: context.env.GOOGLE_CLIENT_ID,
-                clientSecret: context.env.GOOGLE_CLIENT_SECRET,
+                clientId: env.GOOGLE_CLIENT_ID,
+                clientSecret: env.GOOGLE_CLIENT_SECRET,
             },
         },
         session: {
@@ -68,4 +66,4 @@ export const getAuth = (context: {
 }
 
 // For usage only when generating Better Auth schema and outside of request context
-export const auth = getAuth({ d1Session: {} as any, env: {} as any })
+export const auth = getAuth({} as any)

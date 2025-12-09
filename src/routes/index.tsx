@@ -2,14 +2,14 @@ import { createFileRoute } from '@tanstack/solid-router'
 import { Match, Show, Switch } from 'solid-js'
 import { signOut, signinGoogle } from '@/lib/auth-client'
 import { Button } from '@/components/ui/button'
-// import { getAuthUser } from '@/functions/get-auth-user'
+import { getAuthUser } from '@/functions/get-auth-user'
 
 export const Route = createFileRoute('/')({
     component: App,
-    // beforeLoad: async () => {
-    //     const session = await getAuthUser()
-    //     return { session }
-    // }
+    beforeLoad: async () => {
+        const session = await getAuthUser()
+        return { session }
+    }
 })
 
 function App() {

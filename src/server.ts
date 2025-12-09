@@ -35,11 +35,11 @@ export default {
     async fetch(request, env) {
         // const bookmark = request.headers.get('x-d1-bookmark') ?? 'first-unconstrained'
 
-        const dbSession = env.solid_tanstack_db //.withSession(bookmark)
+        const dbSession = env.solid_tanstack_db//.withSession(bookmark)
 
         const d1Session = drizzle(dbSession, { schema, relations })
 
-        const auth = getAuth({ d1Session, env })
+        const auth = getAuth(d1Session)
 
         const response = await handler.fetch(request, {
             context: {

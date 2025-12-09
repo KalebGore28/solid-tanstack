@@ -1,6 +1,5 @@
 import { betterAuth } from 'better-auth/minimal'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { tanstackStartCookies } from 'better-auth/tanstack-start'
 import { lastLoginMethod } from 'better-auth/plugins'
 import { env } from 'cloudflare:workers'
 import pkg from '../../package.json'
@@ -60,7 +59,6 @@ export const getAuth = (d1Session: DrizzleD1Database<typeof schema>) => {
             lastLoginMethod({
                 storeInDatabase: true,
             }),
-            tanstackStartCookies(), // make sure this is the last plugin in the array
         ],
     })
 }

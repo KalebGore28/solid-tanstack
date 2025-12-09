@@ -6,9 +6,6 @@ export const getAuthUser = createServerFn({ method: 'GET' }).handler(
     async () => {
         const getWebRequest = getRequest()
         const headers = getWebRequest.headers
-        if (!headers) {
-            return null
-        }
         const session = await auth.api.getSession({
             headers,
         })

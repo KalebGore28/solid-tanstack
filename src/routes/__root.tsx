@@ -44,13 +44,18 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: Solid.JSX.Element }) {
     return (
-        <>
-            <HeadContent />
-            <TanStackQueryProvider>
-                {children}
-            </TanStackQueryProvider>
-            <TanStackRouterDevtools />
-            <Scripts />
-        </>
+        <html>
+            <head>
+                <HydrationScript />
+            </head>
+            <body>
+                <HeadContent />
+                <TanStackQueryProvider>
+                    {children}
+                </TanStackQueryProvider>
+                <TanStackRouterDevtools />
+                <Scripts />
+            </body>
+        </html>
     )
 }

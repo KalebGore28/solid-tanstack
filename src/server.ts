@@ -12,20 +12,20 @@ declare module '@tanstack/solid-start' {
                     typeof drizzle<typeof schema, typeof relations>
                 >
                 auth: ReturnType<typeof getAuth>
-                user?: NonNullable<
-                    Awaited<
-                        ReturnType<
-                            ReturnType<typeof getAuth>['api']['getSession']
-                        >
-                    >
-                >['user']
-                session?: NonNullable<
-                    Awaited<
-                        ReturnType<
-                            ReturnType<typeof getAuth>['api']['getSession']
-                        >
-                    >
-                >['session']
+                // user?: NonNullable<
+                //     Awaited<
+                //         ReturnType<
+                //             ReturnType<typeof getAuth>['api']['getSession']
+                //         >
+                //     >
+                // >['user']
+                // session?: NonNullable<
+                //     Awaited<
+                //         ReturnType<
+                //             ReturnType<typeof getAuth>['api']['getSession']
+                //         >
+                //     >
+                // >['session']
             }
         }
     }
@@ -33,9 +33,10 @@ declare module '@tanstack/solid-start' {
 
 export default {
     async fetch(request, env) {
-        // const bookmark = request.headers.get('x-d1-bookmark') ?? 'first-unconstrained'
+        const bookmark =
+            request.headers.get('x-d1-bookmark') ?? 'first-unconstrained'
 
-        const dbSession = env.solid_tanstack_db // .withSession(bookmark)
+        const dbSession = env.solid_tanstack_db.withSession(bookmark)
 
         const d1Session = drizzle(dbSession, { schema, relations })
 
@@ -48,7 +49,7 @@ export default {
             },
         })
 
-        // response.headers.set('x-d1-bookmark', dbSession.getBookmark() ?? '')
+        response.headers.set('x-d1-bookmark', dbSession.getBookmark() ?? '')
         return response
     },
 } satisfies ExportedHandler<Env>

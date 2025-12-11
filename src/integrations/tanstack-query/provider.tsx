@@ -20,9 +20,7 @@ export function getQueryClient() {
     }
 }
 
-export default function AppTanstackQueryProvider(props: {
-    children: JSX.Element
-}) {
+export function TanstackQueryProvider(props: { children: JSX.Element }) {
     return (
         <QueryClientProvider client={getQueryClient()}>
             {props.children}

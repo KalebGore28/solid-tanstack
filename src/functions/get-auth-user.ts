@@ -4,10 +4,9 @@ import { auth } from '@/lib/auth'
 
 export const getAuthUser = createServerFn({ method: 'GET' }).handler(
     async () => {
-        const getWebRequest = getRequest()
-        const headers = getWebRequest.headers
+        const request = getRequest()
         const session = await auth.api.getSession({
-            headers,
+            headers: request.headers,
         })
         return session
     },

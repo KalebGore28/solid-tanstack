@@ -1,4 +1,8 @@
 import { createAuthClient } from 'better-auth/client'
+import { useQuery } from '@tanstack/solid-query'
+import { authQuery } from './queries'
+import { getRouter } from '@/router'
+import { getQueryClient } from '@/integrations/tanstack-query/provider'
 
 export const authClient = createAuthClient({
     fetchOptions: {
@@ -14,10 +18,16 @@ export const signinGoogle = async () => {
 }
 
 export const signOut = async () => {
-    return await authClient.signOut()
+    const queryClient = getQueryClient()
+    const router = getRouter()
+
+    await authClient.signOut()
+    await queryClient.invalidateQueries()
+    router.invalidate()
 }
 
-export const getSession = async () => {
-    const res = await authClient.getSession()
-    return { ...res.data }
+export const useAuthentication = () => {
+    const { data: userSession, isLoading } = useQuery(() => authQuery.user())
+
+    return { userSession, isAuthenticated: !!userSession, isLoading }
 }

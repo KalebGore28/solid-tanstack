@@ -6,8 +6,6 @@ import { getQueryClient } from '@/integrations/tanstack-query/provider'
 import { ErrorComponent } from '@/error'
 import { NotFound } from '@/not-found'
 
-// Import the generated route tree
-
 // Create a new router instance
 export const getRouter = () => {
     const queryClient = getQueryClient()

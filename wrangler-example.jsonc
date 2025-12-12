@@ -1,0 +1,43 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "solid-tanstack-start-app",
+	"compatibility_date": "2025-09-02",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"main": "./src/server.ts",
+	"observability": {
+		"enabled": true,
+	},
+	"vars": {
+		"GOOGLE_CLIENT_ID": "google-client-id-placeholder",
+		"GOOGLE_CLIENT_SECRET": "google-client-secret-placeholder",
+		"TRUSTED_ORIGIN": "https://deployment-url-placeholder.com",
+		"BETTER_AUTH_URL": "https://deployment-url-placeholder.com",
+		"BETTER_AUTH_SECRET": "better-auth-secret-placeholder"
+	},
+	// "routes": [
+	// 	{
+	// 		"pattern": "https://deployment-url-placeholder.com",
+	// 		"custom_domain": true,
+	// 	},
+	// ],
+	// "kv_namespaces": [
+	// 	{
+	// 		"binding": "solid_tanstack_kv",
+	// 		"id": "kv-namespace-id-placeholder"
+	// 	}
+	// ],
+	// "d1_databases": [
+	// 	{
+	// 		"binding": "solid_tanstack_db",
+	// 		"database_name": "solid-tanstack-db",
+	// 		"database_id": "database-uuid-placeholder",
+	// 		"migrations_dir": "./drizzle/d1/20251207212323_bitter_saracen"
+	// 	}
+	// ],
+}

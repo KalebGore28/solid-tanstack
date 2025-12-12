@@ -18,19 +18,19 @@ export const getAuth = (d1Session: DrizzleD1Database<typeof schema>) => {
         }),
         secondaryStorage: {
             get: async (key) => {
-                return await env.solid_tanstack.get(key)
+                return await env.solid_tanstack_kv.get(key)
             },
             set: async (key, value, ttl) => {
                 if (ttl) {
-                    await env.solid_tanstack.put(key, value, {
+                    await env.solid_tanstack_kv.put(key, value, {
                         expirationTtl: ttl,
                     })
                 } else {
-                    await env.solid_tanstack.put(key, value)
+                    await env.solid_tanstack_kv.put(key, value)
                 }
             },
             delete: async (key) => {
-                await env.solid_tanstack.delete(key)
+                await env.solid_tanstack_kv.delete(key)
             },
         },
         socialProviders: {

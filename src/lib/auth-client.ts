@@ -27,7 +27,7 @@ export const signOut = async () => {
 }
 
 export const useAuthentication = () => {
-    const { data: userSession, isLoading } = useQuery(() => authQuery.user())
+    const { data: userSession } = useQuery(() => authQuery.user())
 
-    return { userSession, isAuthenticated: !!userSession, isLoading }
+    return { userSession, isAuthenticated: !!userSession }
 }

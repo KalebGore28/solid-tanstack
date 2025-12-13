@@ -71,7 +71,7 @@ bun run cf-typegen
 
 ## 8. Apply Database Migrations
 
-First you need to go to `package.json` and update the script `d1:mig` to match the databse name you give your database:
+First you need to go to `package.json` and update the script `d1:mig` to match the databse name you gave your database:
 
 ```
 "d1:mig": "wrangler d1 migrations apply <database-name>"

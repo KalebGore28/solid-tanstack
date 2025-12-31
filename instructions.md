@@ -38,6 +38,7 @@ bunx wrangler kv namespace create <namespace-name>
 ```
 
 **Example:**
+
 ```bash
 bunx wrangler kv namespace create solid-tanstack-kv
 ```
@@ -54,6 +55,7 @@ bunx wrangler d1 create <database-name>
 ```
 
 **Example:**
+
 ```bash
 bunx wrangler d1 create solid-tanstack-db
 ```

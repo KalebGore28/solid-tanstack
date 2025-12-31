@@ -13,8 +13,8 @@ export const Route = createFileRoute('/login')({
 
 function RouteComponent() {
     return (
-        <div class="p-8 space-y-4 w-full">
-            <h1 class="text-2xl font-bold items-center gap-2">
+        <div class="w-full space-y-4 p-8">
+            <h1 class="items-center gap-2 text-2xl font-bold">
                 Please sign in to continue
             </h1>
             <Button onClick={() => signinGoogle()}>Sign in with Google</Button>

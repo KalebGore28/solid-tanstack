@@ -10,7 +10,7 @@ A full-stack Solid application built with TanStack Start and deployed on Cloudfl
 - **Data Fetching**: TanStack Solid Query with broadcast client and DB collection
 - **Database**: Cloudflare D1 with Drizzle ORM
 - **Authentication**: Better Auth
-- **Styling**: Tailwind CSS v4 with ShadCN-Solid/Radix UI components
+- **Styling**: Tailwind CSS v4 with Solid UI components
 - **Build Tool**: Vite
 - **Testing**: Vitest with Testing Library
 - **Deployment**: Cloudflare Workers (via Wrangler)

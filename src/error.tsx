@@ -31,12 +31,12 @@ export function ErrorComponent(props: ErrorComponentProps) {
     }
 
     return (
-        <div class="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 px-4">
-            <div class="text-center space-y-8 max-w-2xl w-full">
+        <div class="flex min-h-screen items-center justify-center bg-linear-to-br from-gray-50 to-gray-100 px-4 dark:from-gray-900 dark:to-gray-800">
+            <div class="w-full max-w-2xl space-y-8 text-center">
                 {/* Error Icon */}
                 <div class="flex justify-center">
-                    <div class="rounded-full bg-red-100 dark:bg-red-900/20 p-6">
-                        <CircleAlert class="w-16 h-16 text-red-600 dark:text-red-400" />
+                    <div class="rounded-full bg-red-100 p-6 dark:bg-red-900/20">
+                        <CircleAlert class="h-16 w-16 text-red-600 dark:text-red-400" />
                     </div>
                 </div>
 
@@ -53,8 +53,8 @@ export function ErrorComponent(props: ErrorComponentProps) {
 
                 {/* Error Details (Development Only) */}
                 <Show when={isDevelopment}>
-                    <div class="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-lg p-4 text-left">
-                        <div class="flex items-center justify-between mb-2">
+                    <div class="rounded-lg border border-red-200 bg-red-50 p-4 text-left dark:border-red-800 dark:bg-red-900/10">
+                        <div class="mb-2 flex items-center justify-between">
                             <p class="text-sm font-semibold text-red-800 dark:text-red-300">
                                 Error Details:
                             </p>
@@ -62,41 +62,41 @@ export function ErrorComponent(props: ErrorComponentProps) {
                                 onClick={copyErrorDetails}
                                 variant="outline"
                                 size="sm"
-                                class="h-8 gap-2 text-red-700 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
+                                class="h-8 gap-2 text-red-700 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
                             >
                                 <Show
                                     when={copied()}
                                     fallback={
                                         <>
-                                            <Copy class="w-4 h-4" />
+                                            <Copy class="h-4 w-4" />
                                             Copy
                                         </>
                                     }
                                 >
-                                    <Check class="w-4 h-4" />
+                                    <Check class="h-4 w-4" />
                                     Copied!
                                 </Show>
                             </Button>
                         </div>
-                        <p class="text-sm text-red-700 dark:text-red-400 font-mono wrap-break-word">
+                        <p class="font-mono text-sm wrap-break-word text-red-700 dark:text-red-400">
                             {props.error.message}
                         </p>
                         <Show when={props.error.stack}>
                             <details class="mt-3">
-                                <summary class="text-sm text-red-600 dark:text-red-400 cursor-pointer hover:underline">
+                                <summary class="cursor-pointer text-sm text-red-600 hover:underline dark:text-red-400">
                                     Stack Trace
                                 </summary>
-                                <pre class="mt-2 text-xs text-red-600 dark:text-red-400 overflow-x-auto whitespace-pre-wrap">
+                                <pre class="mt-2 overflow-x-auto text-xs whitespace-pre-wrap text-red-600 dark:text-red-400">
                                     {props.error.stack}
                                 </pre>
                             </details>
                         </Show>
                         <Show when={props.info?.componentStack}>
                             <details class="mt-3">
-                                <summary class="text-sm text-red-600 dark:text-red-400 cursor-pointer hover:underline">
+                                <summary class="cursor-pointer text-sm text-red-600 hover:underline dark:text-red-400">
                                     Component Stack
                                 </summary>
-                                <pre class="mt-2 text-xs text-red-600 dark:text-red-400 overflow-x-auto whitespace-pre-wrap">
+                                <pre class="mt-2 overflow-x-auto text-xs whitespace-pre-wrap text-red-600 dark:text-red-400">
                                     {props.info?.componentStack}
                                 </pre>
                             </details>
@@ -105,14 +105,14 @@ export function ErrorComponent(props: ErrorComponentProps) {
                 </Show>
 
                 {/* Actions */}
-                <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <div class="flex flex-col justify-center gap-3 sm:flex-row">
                     <Show when={props.reset}>
                         <Button
                             onClick={() => props.reset?.()}
                             size="lg"
                             class="gap-2"
                         >
-                            <RotateCcw class="w-4 h-4" />
+                            <RotateCcw class="h-4 w-4" />
                             Try Again
                         </Button>
                     </Show>
@@ -122,7 +122,7 @@ export function ErrorComponent(props: ErrorComponentProps) {
                         size="lg"
                         class="gap-2"
                     >
-                        <House class="w-4 h-4" />
+                        <House class="h-4 w-4" />
                         Go Home
                     </Button>
                 </div>
